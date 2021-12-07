@@ -1,4 +1,4 @@
-fastapi/__pycache__
-fastapi/config.yml
+api_file/__pycache__
+api_file/config.yml
 tf-serving/pre-trained-model
 tf-serving/results
