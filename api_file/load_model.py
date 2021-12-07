@@ -1,26 +1,16 @@
-import tensorflow as tf
+from model_reader import parameters
+import json
 
-
-class MODELS:
-    def __init__(self,model_fn,paths):
-        print(paths[0])
-        self.model_1=model_fn.load_weights(paths[0])
-        self.model_1.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=3e-5),
-                 loss='binary_crossentropy')
-        print(f"model1 {self.model_1.summary()}")
-        self.model2=model_fn.load_weights(paths[1])
-        print(f"model2 {self.model2.summary()}")
-        self.model3=model_fn.load_weights(paths[2])
-        self.model4=model_fn.load_weights(paths[3])
-        self.model5=model_fn.load_weights(paths[4])
-        
-    def predict(self,model_inputs):
-        print(f"model1 {self.model1.summary()}")
-        p1=self.model1.predict(model_inputs)
-        print(f"model2 {self.model2.summary()}")
-        p2=self.model2.predict(model_inputs)
-        p3=self.model3.predict(model_inputs)
-        p4=self.model4.predict(model_inputs)
-        p5=self.model5.predict(model_inputs)
-        p=(p1+p2+p3+p4+p5)/5
-        return p
+def make_predictions(model_inputs):
+    model1=f"http://{parameters['HOST']}:{parameters['PORT']}/{parameters['VERSION']}/models/{parameters['MODEL_NAMES'][0]}"
+    model2=f"http://{parameters['HOST']}:{parameters['PORT']}/{parameters['VERSION']}/models/{parameters['MODEL_NAMES'][1]}"
+    model3=f"http://{parameters['HOST']}:{parameters['PORT']}/{parameters['VERSION']}/models/{parameters['MODEL_NAMES'][2]}"
+    model4=f"http://{parameters['HOST']}:{parameters['PORT']}/{parameters['VERSION']}/models/{parameters['MODEL_NAMES'][3]}"
+    model5=f"http://{parameters['HOST']}:{parameters['PORT']}/{parameters['VERSION']}/models/{parameters['MODEL_NAMES'][4]}"
+    p1=json.loads(model1.predict(model_inputs)['prediction'])[0]
+    p2=json.loads(model2.predict(model_inputs)['prediction'])[0]
+    p3=json.loads(model3.predict(model_inputs)['prediction'])[0]
+    p4=json.loads(model4.predict(model_inputs)['prediction'])[0]
+    p5=json.loads(model5.predict(model_inputs)['prediction'])[0]
+    p=(p1+p2+p3+p4+p5)/5
+    return p
