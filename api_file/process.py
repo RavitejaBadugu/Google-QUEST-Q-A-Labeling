@@ -1,6 +1,5 @@
-import tensorflow as tf
 import numpy as np
-from transformers import BertTokenizer,TFBertModel,RobertaTokenizer,TFRobertaModel,XLNetTokenizer,TFXLNetModel
+from transformers import BertTokenizer,RobertaTokenizer,XLNetTokenizer
 
 
 def Tokenizer(PRE_NAME,tokenizer_path):

@@ -1,2 +1,4 @@
 fastapi/__pycache__
 fastapi/config.yml
+tf-serving/pre-trained-model
+tf-serving/results

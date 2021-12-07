@@ -1,0 +1,16 @@
+INFERENCE_PARAMETERS:
+  general:
+    PRE_NAME: 'bert-base-uncased'
+    MAX_LENGTH: 512
+    tokenizer_path: 'tf-serving/pre-trained-model/'
+    HEADS: 1
+    H1: [['question_title', 'question_body'],['answer']]
+    H2: []
+  models:
+    pre_trained_model: 'tf-serving/pre-trained-model/'
+    fold_models:
+      - 'tf-serving/results/bert_4_hiddens_type2_bce_fold_0.h5'
+      - 'tf-serving/results/bert_4_hiddens_type2_bce_fold_1.h5'
+      - 'tf-serving/results/bert_4_hiddens_type2_bce_fold_2.h5'
+      - 'tf-serving/results/bert_4_hiddens_type2_bce_fold_3.h5'
+      - 'tf-serving/results/bert_4_hiddens_type2_bce_fold_4.h5'

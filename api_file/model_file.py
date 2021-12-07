@@ -2,24 +2,24 @@ from tensorflow.keras.layers import Dense,Dropout,Input,Conv1D,BatchNormalizatio
 from transformers import TFBertModel,TFRobertaModel,TFXLNetModel
 import tensorflow as tf
 
-def SINGLE_MODEL(PRE_NAME,MAX_LENGTH,sequence=False,final_activation=True,hidden_states=True,hidden_number=4):
+def SINGLE_MODEL(PRE_NAME,MAX_LENGTH,PRE_MODEL,sequence=False,final_activation=True,hidden_states=True,hidden_number=4):
     tf.keras.backend.clear_session()
     if PRE_NAME.startswith('bert'):
         ins1=Input((MAX_LENGTH,),dtype=tf.int32)
         ins2=Input((MAX_LENGTH,),dtype=tf.int32)
         ins3=Input((MAX_LENGTH,),dtype=tf.int32)
-        pre_model=TFBertModel.from_pretrained(PRE_NAME,output_hidden_states=hidden_states,return_dict=True)
+        pre_model=TFBertModel.from_pretrained(PRE_MODEL,output_hidden_states=hidden_states,return_dict=True)
         pre_layers=pre_model({'input_ids':ins1,'attention_mask':ins2,'token_type_ids':ins3})
     elif PRE_NAME.startswith('xlnet'):
         ins1=Input((MAX_LENGTH,),dtype=tf.int32)
         ins2=Input((MAX_LENGTH,),dtype=tf.int32)
         ins3=Input((MAX_LENGTH,),dtype=tf.int32)
-        pre_model=TFXLNetModel.from_pretrained(PRE_NAME,output_hidden_states=hidden_states,return_dict=True)
+        pre_model=TFXLNetModel.from_pretrained(PRE_MODEL,output_hidden_states=hidden_states,return_dict=True)
         pre_layers=pre_model({'input_ids':ins1,'attention_mask':ins2,'token_type_ids':ins3})
     else:
         ins1=Input((MAX_LENGTH,),dtype=tf.int32)
         ins2=Input((MAX_LENGTH,),dtype=tf.int32)
-        pre_model=TFRobertaModel.from_pretrained(PRE_NAME,output_hidden_states=hidden_states,return_dict=True)
+        pre_model=TFRobertaModel.from_pretrained(PRE_MODEL,output_hidden_states=hidden_states,return_dict=True)
         pre_layers=pre_model({'input_ids':ins1,'attention_mask':ins2})
     if sequence:
         x=Conv1D(1,1)(pre_layers[0])
@@ -54,7 +54,7 @@ def SINGLE_MODEL(PRE_NAME,MAX_LENGTH,sequence=False,final_activation=True,hidden
     return model
 
 
-def DOUBLE_MODEL(PRE_NAME,MAX_LENGTH,sequence=False,final_activation=True,hidden_states=True):
+def DOUBLE_MODEL(PRE_NAME,MAX_LENGTH,PRE_MODEL,sequence=False,final_activation=True,hidden_states=True):
     tf.keras.backend.clear_session()
     if PRE_NAME.startswith('bert'):
         ins1=Input((MAX_LENGTH,),dtype=tf.int32)
@@ -63,7 +63,7 @@ def DOUBLE_MODEL(PRE_NAME,MAX_LENGTH,sequence=False,final_activation=True,hidden
         ins4=Input((MAX_LENGTH,),dtype=tf.int32)
         ins5=Input((MAX_LENGTH,),dtype=tf.int32)
         ins6=Input((MAX_LENGTH,),dtype=tf.int32)
-        pre_model=TFBertModel.from_pretrained(PRE_NAME,output_hidden_states=hidden_states,return_dict=True)
+        pre_model=TFBertModel.from_pretrained(PRE_MODEL,output_hidden_states=hidden_states,return_dict=True)
         pre_layers1=pre_model({'input_ids':ins1,'attention_mask':ins2,'token_type_ids':ins3})
         pre_layers2=pre_model({'input_ids':ins4,'attention_mask':ins5,'token_type_ids':ins6})
     elif PRE_NAME.startswith('xlnet'):
@@ -73,7 +73,7 @@ def DOUBLE_MODEL(PRE_NAME,MAX_LENGTH,sequence=False,final_activation=True,hidden
         ins4=Input((MAX_LENGTH,),dtype=tf.int32)
         ins5=Input((MAX_LENGTH,),dtype=tf.int32)
         ins6=Input((MAX_LENGTH,),dtype=tf.int32)
-        pre_model=TFXLNetModel.from_pretrained(PRE_NAME,output_hidden_states=hidden_states,return_dict=True)
+        pre_model=TFXLNetModel.from_pretrained(PRE_MODEL,output_hidden_states=hidden_states,return_dict=True)
         pre_layers1=pre_model({'input_ids':ins1,'attention_mask':ins2,'token_type_ids':ins3})
         pre_layers2=pre_model({'input_ids':ins4,'attention_mask':ins5,'token_type_ids':ins6})
     else:
@@ -81,7 +81,7 @@ def DOUBLE_MODEL(PRE_NAME,MAX_LENGTH,sequence=False,final_activation=True,hidden
         ins2=Input((MAX_LENGTH,),dtype=tf.int32)
         ins3=Input((MAX_LENGTH,),dtype=tf.int32)
         ins4=Input((MAX_LENGTH,),dtype=tf.int32)
-        pre_model=TFRobertaModel.from_pretrained(PRE_NAME,output_hidden_states=hidden_states,return_dict=True)
+        pre_model=TFRobertaModel.from_pretrained(PRE_MODEL,output_hidden_states=hidden_states,return_dict=True)
         pre_layers1=pre_model({'input_ids':ins1,'attention_mask':ins2})
         pre_layers2=pre_model({'input_ids':ins3,'attention_mask':ins4})
     if sequence:

@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-import post_api
+from api_file import post_api
 
 app=FastAPI()
 

@@ -1,5 +1,5 @@
 import numpy as np
-from process import *
+from api_file.process import *
 
 def get_inputs(PRE_NAME,MAX_LENGTH,tokenizer_path,data,h1,h2,inference=False):
     columns=data.columns.tolist()
