@@ -1,4 +1,4 @@
-api_file/__pycache__/
-api_file/config.yml
+api_file/database.config
+tf-serving/models.config
 tf-serving/pre-trained-model
 tf-serving/results
