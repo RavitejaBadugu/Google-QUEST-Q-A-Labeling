@@ -1,4 +1,5 @@
 import tensorflow as tf
+import numpy as np
 from transformers import BertTokenizer,TFBertModel,RobertaTokenizer,TFRobertaModel,XLNetTokenizer,TFXLNetModel
 
 

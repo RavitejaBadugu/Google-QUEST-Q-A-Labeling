@@ -89,13 +89,13 @@ def get_inputs(PRE_NAME,MAX_LENGTH,tokenizer_path,data,h1,h2,inference=False):
                 return INPUT_IDS1,ATTENTION_MASK1,INPUT_IDS2,ATTENTION_MASK2
 
 
-def get_final_model_inputs(HEADS,PRE_NAME,data,h1,h2,inference=False):
+def get_final_model_inputs(HEADS,PRE_NAME,MAX_LENGTH,tokenizer_path,data,h1,h2,inference=False):
     if HEADS==1:
         if not PRE_NAME.startswith('roberta'):
             if not inference:
-                INPUT_IDS,ATTENTION_MASK,TOKEN_TYPE_IDS,Y=get_inputs(data,h1,h2,inference)
+                INPUT_IDS,ATTENTION_MASK,TOKEN_TYPE_IDS,Y=get_inputs(PRE_NAME,MAX_LENGTH,tokenizer_path,data,h1,h2,inference)
             else:
-                INPUT_IDS,ATTENTION_MASK,TOKEN_TYPE_IDS=get_inputs(data,h1,h2,inference)
+                INPUT_IDS,ATTENTION_MASK,TOKEN_TYPE_IDS=get_inputs(PRE_NAME,MAX_LENGTH,tokenizer_path,data,h1,h2,inference)
             model_inputs={'input_ids':INPUT_IDS,
                          'attention_mask':ATTENTION_MASK,
                          'token_type_ids':TOKEN_TYPE_IDS}
@@ -103,9 +103,9 @@ def get_final_model_inputs(HEADS,PRE_NAME,data,h1,h2,inference=False):
                 model_outputs=Y
         else:
             if not inference:
-                INPUT_IDS,ATTENTION_MASK,Y=get_inputs(data,h1,h2,inference)
+                INPUT_IDS,ATTENTION_MASK,Y=get_inputs(PRE_NAME,MAX_LENGTH,tokenizer_path,data,h1,h2,inference)
             else:
-                INPUT_IDS,ATTENTION_MASK=get_inputs(data,h1,h2,inference)
+                INPUT_IDS,ATTENTION_MASK=get_inputs(PRE_NAME,MAX_LENGTH,tokenizer_path,data,h1,h2,inference)
             model_inputs={'input_ids':INPUT_IDS,
                          'attention_mask':ATTENTION_MASK
                          }
@@ -114,9 +114,9 @@ def get_final_model_inputs(HEADS,PRE_NAME,data,h1,h2,inference=False):
     else:
         if not PRE_NAME.startswith('roberta'):
             if not inference:
-                INPUT_IDS1,ATTENTION_MASK1,TOKEN_TYPE_IDS1,INPUT_IDS2,ATTENTION_MASK2,TOKEN_TYPE_IDS2,Y=get_inputs(data,h1,h2,inference)
+                INPUT_IDS1,ATTENTION_MASK1,TOKEN_TYPE_IDS1,INPUT_IDS2,ATTENTION_MASK2,TOKEN_TYPE_IDS2,Y=get_inputs(PRE_NAME,MAX_LENGTH,tokenizer_path,data,h1,h2,inference)
             else:
-                INPUT_IDS1,ATTENTION_MASK1,TOKEN_TYPE_IDS1,INPUT_IDS2,ATTENTION_MASK2,TOKEN_TYPE_IDS2=get_inputs(data,h1,h2,inference)
+                INPUT_IDS1,ATTENTION_MASK1,TOKEN_TYPE_IDS1,INPUT_IDS2,ATTENTION_MASK2,TOKEN_TYPE_IDS2=get_inputs(PRE_NAME,MAX_LENGTH,tokenizer_path,data,h1,h2,inference)
             model_inputs=[{'input_ids1':INPUT_IDS1,
                          'attention_mask1':ATTENTION_MASK1,
                          'token_type_ids1':TOKEN_TYPE_IDS1},
@@ -127,9 +127,9 @@ def get_final_model_inputs(HEADS,PRE_NAME,data,h1,h2,inference=False):
                 model_outputs=Y
         else:
             if not inference:
-                INPUT_IDS1,ATTENTION_MASK1,INPUT_IDS2,ATTENTION_MASK2,Y=get_inputs(data,h1,h2,inference)
+                INPUT_IDS1,ATTENTION_MASK1,INPUT_IDS2,ATTENTION_MASK2,Y=get_inputs(PRE_NAME,MAX_LENGTH,tokenizer_path,data,h1,h2,inference)
             else:
-                INPUT_IDS1,ATTENTION_MASK1,INPUT_IDS2,ATTENTION_MASK2=get_inputs(data,h1,h2,inference)
+                INPUT_IDS1,ATTENTION_MASK1,INPUT_IDS2,ATTENTION_MASK2=get_inputs(PRE_NAME,MAX_LENGTH,tokenizer_path,data,h1,h2,inference)
             model_inputs=[{'input_ids1':INPUT_IDS1,
                          'attention_mask1':ATTENTION_MASK1},
                           {'input_ids2':INPUT_IDS2,
