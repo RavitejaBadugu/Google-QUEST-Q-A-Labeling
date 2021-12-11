@@ -1,6 +1,6 @@
 import tensorflow as tf
-from model_file import SINGLE_MODEL
-from config_reader import inference_parameters,model_paras
+from api_file.model_file import SINGLE_MODEL
+from api_file.config_reader import inference_parameters
 import gc
 
 class Save_Model:
@@ -9,7 +9,7 @@ class Save_Model:
             tf.keras.backend.clear_session()
             model=SINGLE_MODEL(PRE_NAME=inference_parameters['PRE_NAME'],
                                   MAX_LENGTH=inference_parameters['MAX_LENGTH'],
-                                  PRE_MODEL=model_paras['pre_trained_model'],
+                                  PRE_MODEL=inference_parameters['PRE_MODEL'],
                                   sequence=False,
                                   final_activation=True,
                                   hidden_states=True, 

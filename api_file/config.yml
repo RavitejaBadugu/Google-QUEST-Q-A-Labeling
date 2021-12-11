@@ -3,6 +3,7 @@ INFERENCE_PARAMETERS:
     PRE_NAME: 'bert-base-uncased'
     MAX_LENGTH: 512
     tokenizer_path: 'tf-serving/pre-trained-model/'
+    PRE_MODEL: 'tf-serving/pre-trained-model/'
     HEADS: 1
     H1: [['question_title', 'question_body'],['answer']]
     H2: []

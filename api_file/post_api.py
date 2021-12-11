@@ -1,11 +1,11 @@
-from fastapi import APIRouter,HTTPException
+from fastapi import APIRouter,status
 from pydantic import BaseModel
 import pandas as pd
-from tensorflow.keras import models
+import numpy as np
 from api_file.inputs_process import get_final_model_inputs
-from api_file.config_reader import inference_parameters,model_paras
-from api_file.load_model import MODELS
-from api_file.model_file import SINGLE_MODEL
+from api_file.config_reader import inference_parameters
+from api_file.load_model import make_predictions
+
 router=APIRouter(prefix='/quality',tags=['main'])
 
 
@@ -14,16 +14,10 @@ class DATA(BaseModel):
     QUESTION: str
     ANSWER: str
 
-print(model_paras)
-models=MODELS(SINGLE_MODEL(PRE_NAME=inference_parameters['PRE_NAME'],
-                                  MAX_LENGTH=inference_parameters['MAX_LENGTH'],
-                                  PRE_MODEL=model_paras['pre_trained_model'],
-                                  sequence=False,
-                                  final_activation=True,
-                                  hidden_states=True, 
-                                  hidden_number=4),model_paras['fold_models'])
+class Output_model(BaseModel):
+    pass
 
-@router.post('/')
+@router.post('/',status_code=status.HTTP_200_OK)
 async def post_data(input_data: DATA):
     data=pd.DataFrame({'question_title': input_data.TITLE,
           'question_body': input_data.QUESTION,
@@ -35,5 +29,8 @@ async def post_data(input_data: DATA):
                             tokenizer_path=inference_parameters['tokenizer_path'],
                             data=data,h1=inference_parameters['H1'],h2=inference_parameters['H2'],
                             inference=True)
-    predictions=models.predict(model_inputs)
-    print(predictions)
+    final_inputs=[{'input_1':np.squeeze(model_inputs['input_ids']).tolist(),
+                    'input_2':np.squeeze(model_inputs['attention_mask']).tolist(),
+                    'input_3':np.squeeze(model_inputs['token_type_ids']).tolist()}]
+    predictions=make_predictions(final_inputs).tolist()
+    return predictions
