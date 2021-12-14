@@ -5,6 +5,8 @@ import numpy as np
 from api_file.inputs_process import get_final_model_inputs
 from api_file.config_reader import inference_parameters
 from api_file.load_model import make_predictions
+from api_file.databasemodels import *
+from datetime import datetime
 
 router=APIRouter(prefix='/quality',tags=['main'])
 
@@ -19,6 +21,8 @@ async def post_data(input_data: DATA):
     data=pd.DataFrame({'question_title': input_data.TITLE,
           'question_body': input_data.QUESTION,
            'answer': input_data.ANSWER},index=[0])
+    add_features(input_data.QUESTION,input_data.ANSWER,
+                input_data.TITLE,datetime.now())
            
     model_inputs=get_final_model_inputs(HEADS=inference_parameters['HEADS'],
                             PRE_NAME=inference_parameters['PRE_NAME'],
@@ -30,4 +34,5 @@ async def post_data(input_data: DATA):
                     'input_2':np.squeeze(model_inputs['attention_mask']).tolist(),
                     'input_3':np.squeeze(model_inputs['token_type_ids']).tolist()}]
     predictions=make_predictions(final_inputs).tolist()
+    #add_predictions(predictions,datetime.now())
     return predictions
