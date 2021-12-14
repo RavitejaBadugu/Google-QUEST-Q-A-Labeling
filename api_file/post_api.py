@@ -14,9 +14,6 @@ class DATA(BaseModel):
     QUESTION: str
     ANSWER: str
 
-class Output_model(BaseModel):
-    pass
-
 @router.post('/',status_code=status.HTTP_200_OK)
 async def post_data(input_data: DATA):
     data=pd.DataFrame({'question_title': input_data.TITLE,
