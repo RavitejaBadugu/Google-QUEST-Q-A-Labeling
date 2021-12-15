@@ -1,7 +1,9 @@
-api_file/__pycache__
-api_file/database.yaml
-api_file/config.yml
+utils/.env
+utils/config.yml
+utils/models.yaml
 tf-serving/models.config
-api_file/models.yaml
 tf-serving/pre-trained-model
 tf-serving/results
+__pycache__
+api_file/__pycache__
+utils/__pycache__
