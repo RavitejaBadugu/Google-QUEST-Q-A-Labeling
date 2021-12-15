@@ -1,6 +1,6 @@
 import psycopg2
 from utils.config_reader import database_settings
-from psycopg2.extras import RealDictCursor
+from psycopg2.extras import DictCursor
 import time
 from utils.y_labels import y_columns
 from psycopg2 import sql
@@ -13,7 +13,7 @@ while True:
                                     password=database_settings.DATABASE_PASSWORD,
                                     host=database_settings.HOSTNAME,
                                     port=database_settings.PORT,
-                                    cursor_factory=RealDictCursor)
+                                    cursor_factory=DictCursor)
 
         cursor=connector.cursor()
         print("WE MADE A SUCCESSFUL CONNECTION TO THE DATABASE")
@@ -68,4 +68,3 @@ def CREATE_TABLES():
 
 if __name__ == '__main__':
     CREATE_TABLES()
-    print('loading...')

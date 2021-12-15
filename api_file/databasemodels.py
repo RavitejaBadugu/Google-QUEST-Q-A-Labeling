@@ -2,7 +2,7 @@ from psycopg2 import sql
 import math
 from utils.config_reader import database_settings
 from utils.y_labels import y_columns
-from utils.connection import cursor,connector
+from connection import cursor,connector
 
 FEATURE_TABLE=database_settings.TABLES_FEATURES
 
@@ -40,15 +40,18 @@ def add_predictions(model_predictions,prediction_time):
     connector.commit()
 
 def get_n_features(n):
-    total=0
-    if total>=n:
-        page_no=math.floor(n/5)
-        q=sql.SQL("select * from {name} OFFSET {offrows} limit {show_rows}").format(
+    q=sql.SQL("select count(*) from {table}").format(table=sql.Identifier(FEATURE_TABLE))
+    cursor.execute(q)
+    total=cursor.fetchall()[0]['count']
+    print(f"total is {total}")
+    page_no=math.floor(n/5)
+    q=sql.SQL("select * from {name} OFFSET {offrows} limit {show_rows}").format(
             name=sql.Identifier(FEATURE_TABLE),
             offrows=sql.Placeholder(),
             show_rows=sql.Placeholder()
         )
+    if total>=n:
         cursor.execute(q,(5*page_no,(5*page_no)+5))
     else:
-        cursor.execute('select * from features')
+        cursor.execute(q,(total-5,total+5))
     return cursor.fetchall()

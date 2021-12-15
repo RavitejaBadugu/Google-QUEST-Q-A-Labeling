@@ -31,6 +31,7 @@ async def post_data(input_data: DATA):
     add_features(input_data.QUESTION,input_data.ANSWER,
                 input_data.TITLE,datetime.now())
     print('features are added to database')
+    print(data)
     model_inputs=get_final_model_inputs(HEADS=inference_parameters['HEADS'],
                             PRE_NAME=inference_parameters['PRE_NAME'],
                             MAX_LENGTH=inference_parameters['MAX_LENGTH'],
@@ -42,5 +43,6 @@ async def post_data(input_data: DATA):
                     'input_2':np.squeeze(model_inputs['attention_mask']).tolist(),
                     'input_3':np.squeeze(model_inputs['token_type_ids']).tolist()}]
     predictions=make_predictions(final_inputs)
+    print(f"final predictions :: {predictions}")
     final_predictions=dict((col,predictions[0,i]) for i,col in enumerate(y_columns))
     return final_predictions
