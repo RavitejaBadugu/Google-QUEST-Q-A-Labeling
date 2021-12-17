@@ -1,0 +1,34 @@
+version: '3.8'
+services:
+  fastapi_cont:
+    build: 'api_file/'
+    ports:
+      - 8000:8000
+    depends_on:
+      - postg
+    networks:
+      - quest_network
+    container_name: fastapi_cont
+  postg:
+    image: postgres:9.6
+    ports:
+      - 5432:5432
+    env_file:
+      - api_file/utils/db.env
+    networks:
+      - quest_network
+    container_name: postg
+
+  streamlit_cont:
+    build: 'streamlit/'
+    depends_on:
+      - postg
+      - fastapi_cont
+    ports:
+      - 8502:8502
+    networks:
+      - quest_network
+
+networks: 
+  quest_network:
+    driver: bridge

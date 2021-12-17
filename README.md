@@ -1,4 +1,5 @@
 # Google-QUEST-Q-A-Labeling
+
 # postgresql docker command
 docker run -p 5432:5432 --name postg -e POSTGRES_PASSWORD=yeah -e POSTGRES_USER=admin -e POSTGRES_DB=db postgres:latest
 # tensorflow-serving docker command

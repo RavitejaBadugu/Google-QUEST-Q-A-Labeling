@@ -1,6 +1,6 @@
 import tensorflow as tf
 from api_file.model_file import SINGLE_MODEL
-from utils.config_reader import inference_parameters
+from api_file.utils.config_reader import inference_parameters
 import gc
 
 class Save_Model:

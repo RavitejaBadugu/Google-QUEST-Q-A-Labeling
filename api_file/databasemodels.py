@@ -1,8 +1,8 @@
 from psycopg2 import sql
 import math
-from utils.config_reader import database_settings
-from utils.y_labels import y_columns
-from connection import cursor,connector
+from api_file.utils.config_reader import database_settings
+from api_file.utils.y_labels import y_columns
+from api_file.connection import cursor,connector
 
 FEATURE_TABLE=database_settings.TABLES_FEATURES
 

@@ -2,12 +2,12 @@ import yaml
 from pydantic import BaseSettings
 from typing import Optional
 
-with open('utils/config.yml') as f:
+with open('api_file/utils/config.yml') as f:
     parameters=yaml.safe_load(f)
 
 inference_parameters=parameters['INFERENCE_PARAMETERS']['general']
 
-with open('utils/models.yaml') as f:
+with open('api_file/utils/models.yaml') as f:
     parameters=yaml.safe_load(f)
 
 
@@ -21,6 +21,6 @@ class DataBaseSettings(BaseSettings):
     PORT: int
 
     class Config:
-        env_file='utils/.env'
+        env_file='api_file/utils/.env'
 
 database_settings=DataBaseSettings()

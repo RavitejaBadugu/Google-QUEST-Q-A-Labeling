@@ -6,22 +6,30 @@ from utils.y_labels import y_columns
 from psycopg2 import sql
 
 connector=None
-while True:
-    try:
-        connector=psycopg2.connect(dbname=database_settings.DATABASE,
-                                    user=database_settings.DATABASE_USER,
-                                    password=database_settings.DATABASE_PASSWORD,
-                                    host=database_settings.HOSTNAME,
-                                    port=database_settings.PORT,
-                                    cursor_factory=DictCursor)
+connector=psycopg2.connect(dbname=database_settings.DATABASE,
+                            user=database_settings.DATABASE_USER,
+                            password=database_settings.DATABASE_PASSWORD,
+                            host=database_settings.HOSTNAME,
+                            port=database_settings.PORT,
+                            cursor_factory=DictCursor)
 
-        cursor=connector.cursor()
-        print("WE MADE A SUCCESSFUL CONNECTION TO THE DATABASE")
-        break
-    except Exception as error:
-        print("CONNECTION FAILED")
-        print("ERROR : ",error)
-        time.sleep(10)
+cursor=connector.cursor()
+#while True:
+#    try:
+#        connector=psycopg2.connect(dbname=database_settings.DATABASE,
+#                                    user=database_settings.DATABASE_USER,
+#                                    password=database_settings.DATABASE_PASSWORD,
+#                                    host=database_settings.HOSTNAME,
+#                                    port=database_settings.PORT,
+#                                    cursor_factory=DictCursor)
+#
+#        cursor=connector.cursor()
+#        print("WE MADE A SUCCESSFUL CONNECTION TO THE DATABASE")
+#        break
+#    except Exception as error:
+#        print("CONNECTION FAILED")
+#        print("ERROR : ",error)
+#        time.sleep(2)
 
 FEATURE_TABLE=database_settings.TABLES_FEATURES
 
@@ -67,4 +75,5 @@ def CREATE_TABLES():
 
 
 if __name__ == '__main__':
+    print('THe connection is yet to be start')
     CREATE_TABLES()

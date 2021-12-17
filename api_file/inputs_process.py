@@ -1,6 +1,6 @@
 import numpy as np
 from api_file.process import *
-from utils.y_labels import y_columns
+from api_file.utils.y_labels import y_columns
 
 def get_inputs(PRE_NAME,MAX_LENGTH,tokenizer_path,data,h1,h2,inference=False):
     columns=data.columns.tolist()

@@ -3,12 +3,12 @@ from pydantic import BaseModel
 import pandas as pd
 import numpy as np
 from api_file.inputs_process import get_final_model_inputs
-from utils.config_reader import inference_parameters
+from api_file.utils.config_reader import inference_parameters
 from api_file.load_model import make_predictions
 from api_file.databasemodels import *
 from datetime import datetime
 from pydantic import create_model
-from utils.y_labels import y_columns
+from api_file.utils.y_labels import y_columns
 
 router=APIRouter(prefix='/quality',tags=['main'])
 
