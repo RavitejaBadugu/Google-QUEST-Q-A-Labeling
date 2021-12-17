@@ -2,9 +2,10 @@ import streamlit as st
 import requests
 import pandas as pd
 
-fastapi='http://localhost:8000/'
-send_data='http://localhost:8000/quality'
-get_data='http://localhost:8000/posts'
+fastapi='http://fastapi_cont:8000/'
+send_data='http://fastapi_cont:8000/quality'
+get_data='http://fastapi_cont:8000/posts'
+
 st.header("Hhh")
 st.subheader(requests.get(fastapi).json())
 

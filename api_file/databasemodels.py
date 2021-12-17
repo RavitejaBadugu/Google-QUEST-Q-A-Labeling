@@ -1,14 +1,25 @@
+import psycopg2
 from psycopg2 import sql
+from psycopg2.extras import DictCursor
 import math
 from api_file.utils.config_reader import database_settings
 from api_file.utils.y_labels import y_columns
-from api_file.connection import cursor,connector
 
 FEATURE_TABLE=database_settings.TABLES_FEATURES
 
 PREDICTION_TABLE=database_settings.TABLES_PREDICTIONS
 
 CREATE_FEATURES=y_columns
+
+connector=None
+connector=psycopg2.connect(dbname=database_settings.DATABASE,
+                            user=database_settings.DATABASE_USER,
+                            password=database_settings.DATABASE_PASSWORD,
+                            host='postg',
+                            port='5432',
+                            cursor_factory=DictCursor)
+
+cursor=connector.cursor()
 
 #add values
 def add_features(question,answer,title,time_posted):

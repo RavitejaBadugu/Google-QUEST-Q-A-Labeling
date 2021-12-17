@@ -12,7 +12,7 @@ with open('api_file/utils/models.yaml') as f:
 
 
 class DataBaseSettings(BaseSettings):
-    HOSTNAME: str
+    DATABASE_HOSTNAME: str
     DATABASE: str
     TABLES_FEATURES: str
     TABLES_PREDICTIONS: str

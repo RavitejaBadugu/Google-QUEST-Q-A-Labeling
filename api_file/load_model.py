@@ -1,4 +1,4 @@
-from utils.config_reader import parameters
+from api_file.utils.config_reader import parameters
 import json
 import requests
 import numpy as np
