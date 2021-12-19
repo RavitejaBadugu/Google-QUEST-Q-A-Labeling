@@ -51,18 +51,25 @@ def add_predictions(model_predictions,prediction_time):
     connector.commit()
 
 def get_n_features(n):
-    q=sql.SQL("select count(*) from {table}").format(table=sql.Identifier(FEATURE_TABLE))
-    cursor.execute(q)
-    total=cursor.fetchall()[0]['count']
-    print(f"total is {total}")
-    page_no=math.floor(n/5)
-    q=sql.SQL("select * from {name} OFFSET {offrows} limit {show_rows}").format(
-            name=sql.Identifier(FEATURE_TABLE),
-            offrows=sql.Placeholder(),
-            show_rows=sql.Placeholder()
-        )
-    if total>=n:
-        cursor.execute(q,(5*page_no,(5*page_no)+5))
-    else:
-        cursor.execute(q,(total-5,total+5))
-    return cursor.fetchall()
+    try:
+        q=sql.SQL("select count(*) from {table}").format(table=sql.Identifier(FEATURE_TABLE))
+        cursor.execute(q)
+        total=cursor.fetchall()[0]['count']
+        #print(f"total is {total}")
+        page_no=math.floor(n/5)
+        q=sql.SQL("select * from {name} OFFSET {offrows} limit {show_rows}").format(
+                name=sql.Identifier(FEATURE_TABLE),
+                offrows=sql.Placeholder(),
+                show_rows=sql.Placeholder()
+            )
+        if total>=n:
+            cursor.execute(q,(5*page_no,(5*page_no)+5))
+        else:
+            if total>=5:
+                cursor.execute(q,(total-5,total+5))
+            else:
+                q=sql.SQL("select * from {table}").format(table=sql.Identifier(FEATURE_TABLE))
+                cursor.execute(q)
+        return cursor.fetchall()
+    except:
+        return 'no data is uploaded before'

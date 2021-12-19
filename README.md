@@ -63,7 +63,9 @@ get_data_url='http://fastapi_container_name_here/posts'
 # for below commands we need to create network and all docker containers should run in same network which allows them to connect eachother.
 # to create docker network run below command
 docker network create network_name
+
 By default the network which we create will be bridge
+
 
 # postgresql docker command
 docker run -p 5432:5432 --name postgres_container_name -d --network=network_name -e POSTGRES_PASSWORD=passwd -e POSTGRES_USER=user_name -e POSTGRES_DB=database_name postgres:latest
@@ -71,11 +73,39 @@ docker run -p 5432:5432 --name postgres_container_name -d --network=network_name
 # tensorflow-serving docker command
 docker run -p 8500:8500 -p 8501:8501 -d --name tensorflow-serving-container-name --network=network_name --mount type=bind,source=complete_path_to_models_folder,target=/models/ -t tensorflow/serving --model_config_file=/models/models.config
 
+if you see  "NET_LOG: Entering the event loop ..." in logs at the end. It means all models are ready for serving.
+
+otherwise check the path you mentioned. Go to tensorflow website or tensorflow-serving github page and see the format the models need 
+
+to be placed in folders
 # fastapi docker command
 cd api_file
+
 docker build -t fastapi_image_name .
+
 docker run -d --name fastapi_container_name --network=network_name -p 8000:8000 fastapi_image_name
+
 # streamlit docker command
 cd streamlit
+
 docker build -t streamlit_image_name .
+
 docker run -d --name streamlit_container_name --network=network_name -p 8502:8502 streamlit_image_name
+
+# photos of streamlit app
+* entered question, asnwer and title of a question from stackoverflow which I asked 
+
+![alt text](images/app · Streamlit - Google Chrome 19-12-2021 20_11_06.png)
+
+* the model predictions images
+![alt text](images/app · Streamlit - Google Chrome 19-12-2021 20_11_06.png)
+![alt text](images/app · Streamlit - Google Chrome 19-12-2021 20_11_06.png)
+
+* here when pressed to show examples. I am getting output in form of dataframe. Here it only shows question, answer,
+* title and date when it is posted
+
+![alt text](images/app · Streamlit - Google Chrome 19-12-2021 20_11_06.png)
+
+
+
+
