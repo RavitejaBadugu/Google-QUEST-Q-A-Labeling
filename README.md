@@ -101,7 +101,7 @@ docker run -d --name streamlit_container_name --network=network_name -p 8502:850
 ![alt text](https://github.com/RavitejaBadugu/Google-QUEST-Q-A-Labeling/blob/development/images/app%20%C2%B7%20Streamlit%20-%20Google%20Chrome%2019-12-2021%2020_11_35.png)
 ![alt text](https://github.com/RavitejaBadugu/Google-QUEST-Q-A-Labeling/blob/development/images/app%20%C2%B7%20Streamlit%20-%20Google%20Chrome%2019-12-2021%2020_11_42.png)
 
-* here when pressed to show examples. I am getting output in form of dataframe. Here it only shows question, answer,
+* here when pressed to show examples. I am showing output in form of dataframe. Here it only shows question, answer,
 * title and date when it is posted
 
 ![alt text](https://github.com/RavitejaBadugu/Google-QUEST-Q-A-Labeling/blob/development/images/Screenshot%202021-12-19%20201210.png)
