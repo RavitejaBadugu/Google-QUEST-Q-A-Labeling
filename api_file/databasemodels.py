@@ -15,8 +15,8 @@ connector=None
 connector=psycopg2.connect(dbname=database_settings.DATABASE,
                             user=database_settings.DATABASE_USER,
                             password=database_settings.DATABASE_PASSWORD,
-                            host='postg',
-                            port='5432',
+                            host=database_settings.POSTGRES_DATABASE_HOSTNAME,
+                            port=database_settings.POSTGRES_PORT,
                             cursor_factory=DictCursor)
 
 cursor=connector.cursor()

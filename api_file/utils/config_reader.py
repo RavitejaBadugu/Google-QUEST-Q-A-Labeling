@@ -12,13 +12,13 @@ with open('api_file/utils/models.yaml') as f:
 
 
 class DataBaseSettings(BaseSettings):
-    DATABASE_HOSTNAME: str
+    POSTGRES_DATABASE_HOSTNAME: str
     DATABASE: str
     TABLES_FEATURES: str
     TABLES_PREDICTIONS: str
     DATABASE_USER: Optional[str]
     DATABASE_PASSWORD: str
-    PORT: int
+    POSTGRES_PORT: int
 
     class Config:
         env_file='api_file/utils/.env'

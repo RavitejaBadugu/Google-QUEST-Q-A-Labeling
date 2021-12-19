@@ -6,10 +6,6 @@ app=FastAPI()
 
 app.include_router(post_api.router)
 
-@app.get('/')
-async def welcome_page():
-    return 'Starting the api'
-
 class N_data(BaseModel):
     n: int
 

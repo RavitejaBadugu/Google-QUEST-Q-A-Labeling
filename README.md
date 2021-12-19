@@ -1,6 +1,81 @@
 # Google-QUEST-Q-A-Labeling
+## files to be created
+# ->tokenizer_folder -path: in api_file folder
+It contains 3 files for tokenization. config.json,tokenizer.json and vocab.txt
+
+# ->.env -path: in utils folder
+
+It contains::
+
+POSTGRES_DATABASE_HOSTNAME=None
+
+DATABASE=None
+
+TABLES_FEATURES=None
+
+TABLES_PREDICTIONS=None
+
+DATABASE_USER=None
+
+DATABASE_PASSWORD=None
+
+POSTGRES_PORT=None
+
+# ->db.env -path in api_folder
+It contains::
+
+POSTGRES_PASSWORD=None
+
+POSTGRES_USER=None
+
+POSTGRES_DB=None
+
+# -> models.yaml -path: in api_folder
+It contains::
+
+HOST: None
+
+PORT: None
+
+VERSION: version number
+
+MODEL_NAMES:
+
+  - fold0
+
+  - fold1
+
+  - fold2
+
+  - fold3
+
+  - fold4
+
+# -> streamlit.env -path: in streamlit folder
+It contains::
+
+fastapi_url='http://fastapi_container_name_here:8000/'
+
+send_data_url='http://fastapi_container_name_here/quality'
+
+get_data_url='http://fastapi_container_name_here/posts'
+
+# for below commands we need to create network and all docker containers should run in same network which allows them to connect eachother.
+# to create docker network run below command
+docker network create network_name
+By default the network which we create will be bridge
 
 # postgresql docker command
-docker run -p 5432:5432 --name postg -e POSTGRES_PASSWORD=yeah -e POSTGRES_USER=admin -e POSTGRES_DB=db postgres:latest
+docker run -p 5432:5432 --name postgres_container_name -d --network=network_name -e POSTGRES_PASSWORD=passwd -e POSTGRES_USER=user_name -e POSTGRES_DB=database_name postgres:latest
+
 # tensorflow-serving docker command
-docker run -p 8500:8500 -p 8501:8501 --mount type=bind,source='C:/Users/ravi1/google_quest_labelling_project/Google-QUEST-Q-A-Labeling/tf-serving/',target=/models/ -t tensorflow/serving --model_config_file=/models/models.config
+docker run -p 8500:8500 -p 8501:8501 -d --name tensorflow-serving-container-name --network=network_name --mount type=bind,source=complete_path_to_models_folder,target=/models/ -t tensorflow/serving --model_config_file=/models/models.config
+
+# fastapi docker command
+cd api_file
+docker build -t fastapi_image_name .
+docker run -d --name fastapi_container_name --network=network_name -p 8000:8000 fastapi_image_name
+# streamlit docker command
+cd streamlit
+docker build -t streamlit_image_name .
+docker run -d --name streamlit_container_name --network=network_name -p 8502:8502 streamlit_image_name

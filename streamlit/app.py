@@ -1,13 +1,14 @@
 import streamlit as st
 import requests
 import pandas as pd
+from test_params import streamlit_settings
 
-fastapi='http://fastapi_cont:8000/'
-send_data='http://fastapi_cont:8000/quality'
-get_data='http://fastapi_cont:8000/posts'
+fastapi=streamlit_settings.fastapi_url
+send_data=streamlit_settings.send_data_url
+get_data=streamlit_settings.get_data_url
 
-st.header("Hhh")
-st.subheader(requests.get(fastapi).json())
+st.header("streamlit app for google quest labelling competition")
+st.subheader("Enter the data to get predictions and if you want can also check the examples of input given to  the model below")
 
 question=st.text_area(label="Write the question here")
 answer=st.text_area(label="Write the answer here")

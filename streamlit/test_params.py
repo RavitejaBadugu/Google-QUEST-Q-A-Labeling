@@ -2,9 +2,9 @@ from pydantic import BaseSettings
 from pydantic import AnyHttpUrl
 
 class Streamlit_Settings(BaseSettings):
-    fastapi: AnyHttpUrl
-    send_data: AnyHttpUrl
-    get_data: AnyHttpUrl
+    fastapi_url: AnyHttpUrl
+    send_data_url: AnyHttpUrl
+    get_data_url: AnyHttpUrl
 
     class Config:
         env_file= './streamlit.env'

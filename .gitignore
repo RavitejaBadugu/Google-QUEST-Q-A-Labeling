@@ -1,10 +1,8 @@
 api_file/utils/.env
 api_file/utils/db.env
-api_file/utils/config.yml
 api_file/utils/models.yaml
 api_file/.dockerignore
 api_file/tokenizer_folder
-tf-serving/models.config
 tf-serving/pre-trained-model
 tf-serving/results
 __pycache__
