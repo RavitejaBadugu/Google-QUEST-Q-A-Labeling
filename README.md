@@ -1,4 +1,10 @@
 # Google-QUEST-Q-A-Labeling
+This competition aim is to build models for predicting the subjective aspects of question-asnwering.
+The metric used for this competition is  **Spearman's correlation coefficient.**
+* my score for this competition is 
+
+![alt text](https://github.com/RavitejaBadugu/Google-QUEST-Q-A-Labeling/blob/development/images/Screenshot%202021-12-20%20201402.png)
+
 ## files to be created
 # ->tokenizer_folder -path: in api_file folder
 It contains 3 files for tokenization. config.json,tokenizer.json and vocab.txt
