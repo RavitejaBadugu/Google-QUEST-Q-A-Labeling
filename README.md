@@ -9,6 +9,8 @@ The metric used for this competition is  **Spearman's correlation coefficient.**
 # ->tokenizer_folder -path: in api_file folder
 It contains 3 files for tokenization. config.json,tokenizer.json and vocab.txt
 
+These files you will get from hugging face.
+
 # ->.env -path: in utils folder
 
 It contains::
